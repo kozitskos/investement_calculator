@@ -56,18 +56,34 @@ export function LandingPage() {
       capitalAllocationWeeks
     } = params
 
-    const week = 0
-    const bottlesSold = initialBottlesSold
-    const cashOnHand = 0
-    const inventory = initialInventory
-    const history = [[week, bottlesSold]]
-    const inventoryHistory = [inventory]
-    const monthlySales = []
-    const monthlyAccumulator = 0
-    const monthlyRevenues = []
-    const cashOnHandHistory = []
-    const netMonthlyRevenues = []
-    const investableCashHistory = [0]
+    // let week = 0
+    // let bottlesSold = initialBottlesSold
+    // let cashOnHand = 0
+    // let inventory = initialInventory
+    // let history = [[week, bottlesSold]]
+    // let inventoryHistory = [inventory]
+    // let monthlySales = []
+    // let monthlyAccumulator = 0
+    // let monthlyRevenues = []
+    // let cashOnHandHistory = []
+    // let netMonthlyRevenues = []
+    // let investableCashHistory = [0]
+
+    let week = 0; // Since `week` is updated in the loop, it stays `let`
+    let bottlesSold = initialBottlesSold; // This might change, so keep as `let`
+    let cashOnHand = 0; // This will change, so keep as `let`
+    let inventory = initialInventory; // This will change, so keep as `let`
+
+    // Use const for variables that are not reassigned
+    const history = [[week, bottlesSold]];
+    const inventoryHistory = [inventory];
+    const monthlySales = [];
+    let monthlyAccumulator = 0; // This is updated, so keep as `let`
+    const monthlyRevenues = [];
+    const cashOnHandHistory = [];
+    const netMonthlyRevenues = [];
+    const investableCashHistory = [0];
+
 
     while (week < totalWeeks) {
       let investableCash = 0
