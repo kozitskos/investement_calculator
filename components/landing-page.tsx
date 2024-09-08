@@ -56,18 +56,18 @@ export function LandingPage() {
       capitalAllocationWeeks
     } = params
 
-    let week = 0
-    let bottlesSold = initialBottlesSold
-    let cashOnHand = 0
-    let inventory = initialInventory
-    let history = [[week, bottlesSold]]
-    let inventoryHistory = [inventory]
-    let monthlySales = []
-    let monthlyAccumulator = 0
-    let monthlyRevenues = []
-    let cashOnHandHistory = []
-    let netMonthlyRevenues = []
-    let investableCashHistory = [0]
+    const week = 0
+    const bottlesSold = initialBottlesSold
+    const cashOnHand = 0
+    const inventory = initialInventory
+    const history = [[week, bottlesSold]]
+    const inventoryHistory = [inventory]
+    const monthlySales = []
+    const monthlyAccumulator = 0
+    const monthlyRevenues = []
+    const cashOnHandHistory = []
+    const netMonthlyRevenues = []
+    const investableCashHistory = [0]
 
     while (week < totalWeeks) {
       let investableCash = 0
