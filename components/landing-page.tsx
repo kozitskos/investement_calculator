@@ -12,7 +12,7 @@ import InvestableCashChart from '@/components/charts/InvestableCashChart'
 import InventoryChart from '@/components/charts/InventoryChart'
 import CombinedChart from '@/components/charts/CombinedChart'
 
-export default function LandingPage() {
+export function LandingPage() {
   const [inputs, setInputs] = useState({
     initialInventory: 1000,
     initialBottlesSold: 500,
@@ -353,9 +353,7 @@ export default function LandingPage() {
                       <CardTitle>Inventory Levels</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <InventoryChart data={chart
-
-Data.inventory} />
+                      <InventoryChart data={chartData.inventory} />
                     </CardContent>
                   </Card>
 
