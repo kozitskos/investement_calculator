@@ -146,7 +146,7 @@ export function LandingPage() {
     return { history, monthlySales, monthlyRevenues, cashOnHandHistory, netMonthlyRevenues, investableCashHistory, inventoryHistory }
   }
 
-const prepareChartData = (results) => {
+const prepareChartData = (results: SimulationResults | null) => {
   if (!results) return null;
 
   return {
