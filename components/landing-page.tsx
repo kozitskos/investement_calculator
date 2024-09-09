@@ -12,8 +12,33 @@ import InvestableCashChart from '@/components/charts/InvestableCashChart'
 import InventoryChart from '@/components/charts/InventoryChart'
 import CombinedChart from '@/components/charts/CombinedChart'
 
+interface InputState {
+  initialInventory: number;
+  initialBottlesSold: number;
+  costPerBottle: number;
+  sellPricePerBottle: number;
+  amazonFeeRate: number;
+  advertisementFeeRate: number;
+  weeksToReinvest: number;
+  totalWeeks: number;
+  salesIncreaseRate: number;
+  operationalReserve: number;
+  restockRatio: number;
+  capitalAllocationWeeks: number;
+}
+
+interface SimulationResults {
+  history: [number, number][];
+  monthlySales: number[];
+  monthlyRevenues: number[];
+  cashOnHandHistory: number[];
+  netMonthlyRevenues: number[];
+  investableCashHistory: number[];
+  inventoryHistory: number[];
+}
+
 export function LandingPage() {
-  const [inputs, setInputs] = useState({
+  const [inputs, setInputs] = useState<InputState>({
     initialInventory: 1000,
     initialBottlesSold: 500,
     costPerBottle: 5,
@@ -28,9 +53,9 @@ export function LandingPage() {
     capitalAllocationWeeks: 15
   })
 
-  const [simulationResults, setSimulationResults] = useState(null)
+  const [simulationResults, setSimulationResults] = useState<SimulationResults | null>(null)
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setInputs(prev => ({ ...prev, [name]: parseFloat(value) }))
   }
@@ -40,7 +65,7 @@ export function LandingPage() {
     setSimulationResults(results)
   }
 
-  const refinedGrowthSimulation = (params) => {
+  const refinedGrowthSimulation = (params: InputState): SimulationResults => {
     const {
       initialInventory,
       initialBottlesSold,
@@ -62,13 +87,13 @@ export function LandingPage() {
     let inventory = initialInventory
     let monthlyAccumulator = 0
 
-    const history = [[week, bottlesSold]]
-    const inventoryHistory = [inventory]
-    const monthlySales = []
-    const monthlyRevenues = []
-    const cashOnHandHistory = []
-    const netMonthlyRevenues = []
-    const investableCashHistory = [0]
+    const history: [number, number][] = [[week, bottlesSold]]
+    const inventoryHistory: number[] = [inventory]
+    const monthlySales: number[] = []
+    const monthlyRevenues: number[] = []
+    const cashOnHandHistory: number[] = []
+    const netMonthlyRevenues: number[] = []
+    const investableCashHistory: number[] = [0]
 
     while (week < totalWeeks) {
       let investableCash = 0
@@ -121,7 +146,7 @@ export function LandingPage() {
     return { history, monthlySales, monthlyRevenues, cashOnHandHistory, netMonthlyRevenues, investableCashHistory, inventoryHistory }
   }
 
-  const prepareChartData = (results) => {
+  const prepareChartData = (results: SimulationResults) => {
     if (!results) return null
 
     return {
@@ -227,7 +252,7 @@ export function LandingPage() {
                       name="amazonFeeRate"
                       type="number" 
                       value={inputs.amazonFeeRate * 100}
-                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: parseFloat(e.target.value) / 100}})}
+                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: (parseFloat(e.target.value) / 100).toString()}})}
                     />
                   </div>
                   <div>
@@ -237,7 +262,7 @@ export function LandingPage() {
                       name="advertisementFeeRate"
                       type="number" 
                       value={inputs.advertisementFeeRate * 100}
-                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: parseFloat(e.target.value) / 100}})}
+                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: (parseFloat(e.target.value) / 100).toString()}})}
                     />
                   </div>
                 </div>
@@ -271,7 +296,7 @@ export function LandingPage() {
                       name="salesIncreaseRate"
                       type="number" 
                       value={inputs.salesIncreaseRate * 100}
-                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: parseFloat(e.target.value) / 100}})}
+                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: (parseFloat(e.target.value) / 100).toString()}})}
                     />
                   </div>
                   <div>
@@ -281,7 +306,7 @@ export function LandingPage() {
                       name="operationalReserve"
                       type="number" 
                       value={inputs.operationalReserve * 100}
-                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: parseFloat(e.target.value) / 100}})}
+                      onChange={(e) => handleInputChange({...e, target: {...e.target, value: (parseFloat(e.target.value) / 100).toString()}})}
                     />
                   </div>
                 </div>
