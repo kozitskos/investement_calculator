@@ -1,9 +1,22 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions, ChartData } from 'chart.js';
 import 'chart.js/auto';
 
-const InvestableCashChart = ({ data }) => {
-    const options = {
+// Define the shape of the data prop
+interface InvestableCashData {
+    weeks: string[]; // Array of week labels as strings
+    investableCash: number[]; // Array of investable cash values as numbers
+}
+
+// Define the props for the component
+interface InvestableCashChartProps {
+    data: InvestableCashData;
+}
+
+const InvestableCashChart: React.FC<InvestableCashChartProps> = ({ data }) => {
+    // Type the chart options
+    const options: ChartOptions<'line'> = {
         responsive: true,
         interaction: {
             mode: 'index',
@@ -37,7 +50,8 @@ const InvestableCashChart = ({ data }) => {
         }
     };
 
-    const chartData = {
+    // Type the chart data
+    const chartData: ChartData<'line'> = {
         labels: data.weeks,
         datasets: [
             {

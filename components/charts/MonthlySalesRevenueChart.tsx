@@ -1,10 +1,23 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Line } from 'react-chartjs-2';
+import { ChartOptions, ChartData } from 'chart.js';
 import 'chart.js/auto';
 
-const MonthlySalesRevenueChart = ({ data }) => {
-    const options = {
+// Define the shape of the data prop
+interface MonthlySalesRevenueData {
+    months: string[]; // Array of month labels
+    monthlySales: number[]; // Array of monthly sales (bottles sold)
+    monthlyRevenues: number[]; // Array of monthly revenues
+}
+
+// Define the props for the component
+interface MonthlySalesRevenueChartProps {
+    data: MonthlySalesRevenueData;
+}
+
+const MonthlySalesRevenueChart: React.FC<MonthlySalesRevenueChartProps> = ({ data }) => {
+    // Type the chart options
+    const options: ChartOptions<'bar'> = {
         responsive: true,
         scales: {
             y: {
@@ -29,7 +42,8 @@ const MonthlySalesRevenueChart = ({ data }) => {
         },
     };
 
-    const chartData = {
+    // Type the chart data
+    const chartData: ChartData<'bar'> = {
         labels: data.months,
         datasets: [
             {
@@ -38,7 +52,7 @@ const MonthlySalesRevenueChart = ({ data }) => {
                 borderColor: 'rgb(54, 162, 235)',
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 yAxisID: 'y',
-                type: 'bar',
+                type: 'bar', // specifies that this dataset will be rendered as a bar
             },
             {
                 label: 'Total Revenue',
@@ -46,8 +60,8 @@ const MonthlySalesRevenueChart = ({ data }) => {
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 yAxisID: 'y1',
-                type: 'line',
-            }
+                type: 'line', // specifies that this dataset will be rendered as a line
+            },
         ],
     };
 

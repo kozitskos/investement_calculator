@@ -1,31 +1,32 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions, ChartData } from 'chart.js';
 import 'chart.js/auto';
 
-const CombinedChart = ({ investableCashData, inventoryData }) => {
-    const options = {
+// Define the shape of the data prop
+interface InventoryData {
+    weeks: string[]; // Array of week labels (could be string or number depending on use case)
+    inventoryLevels: number[]; // Array of inventory level values
+}
+
+// Define the props for the component
+interface InventoryChartProps {
+    data: InventoryData;
+}
+
+const InventoryChart: React.FC<InventoryChartProps> = ({ data }) => {
+    // Type the chart options
+    const options: ChartOptions<'line'> = {
         responsive: true,
         interaction: {
             mode: 'index',
             intersect: false,
         },
         scales: {
-            yLeft: {
+            y: {
                 type: 'linear',
                 display: true,
                 position: 'left',
-                title: {
-                    display: true,
-                    text: 'Investable Cash ($)'
-                },
-                grid: {
-                    drawOnChartArea: false, // only want the grid lines for this axis to show
-                }
-            },
-            yRight: {
-                type: 'linear',
-                display: true,
-                position: 'right',
                 title: {
                     display: true,
                     text: 'Inventory Level'
@@ -41,7 +42,7 @@ const CombinedChart = ({ investableCashData, inventoryData }) => {
         },
         plugins: {
             legend: {
-                display: true
+                display: false
             },
             tooltip: {
                 enabled: true
@@ -49,22 +50,16 @@ const CombinedChart = ({ investableCashData, inventoryData }) => {
         }
     };
 
-    const chartData = {
-        labels: investableCashData.weeks, // Assuming weeks array is the same for both datasets
+    // Type the chart data
+    const chartData: ChartData<'line'> = {
+        labels: data.weeks, // Assuming data.weeks is an array of week numbers
         datasets: [
             {
-                label: 'Investable Cash',
-                data: investableCashData.investableCash,
-                borderColor: 'rgb(54, 162, 235)',
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                yAxisID: 'yLeft'
-            },
-            {
                 label: 'Inventory',
-                data: inventoryData.inventoryLevels,
+                data: data.inventoryLevels,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                yAxisID: 'yRight'
+                yAxisID: 'y'
             }
         ]
     };
@@ -72,4 +67,4 @@ const CombinedChart = ({ investableCashData, inventoryData }) => {
     return <Line options={options} data={chartData} />;
 };
 
-export default CombinedChart;
+export default InventoryChart;

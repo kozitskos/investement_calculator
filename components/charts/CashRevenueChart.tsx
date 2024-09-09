@@ -1,9 +1,23 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
+import { ChartOptions, ChartData } from 'chart.js';
 import 'chart.js/auto';
 
-const CashRevenueChart = ({ data }) => {
-    const options = {
+// Define the shape of the data prop
+interface ChartDataProps {
+    months: string[]; // Array of months as strings
+    cashOnHand: number[]; // Array of cash on hand values as numbers
+    netRevenue: number[]; // Array of net revenue values as numbers
+}
+
+// Define the props for the component
+interface CashRevenueChartProps {
+    data: ChartDataProps;
+}
+
+const CashRevenueChart: React.FC<CashRevenueChartProps> = ({ data }) => {
+    // Type the chart options
+    const options: ChartOptions<'line'> = {
         responsive: true,
         interaction: {
             mode: 'index',
@@ -37,7 +51,8 @@ const CashRevenueChart = ({ data }) => {
         }
     };
 
-    const chartData = {
+    // Type the chart data
+    const chartData: ChartData<'line'> = {
         labels: data.months, // Assuming data.months is an array of month labels
         datasets: [
             {
