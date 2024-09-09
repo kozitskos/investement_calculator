@@ -165,11 +165,11 @@ const prepareChartData = (results: SimulationResults | null) => {
       netRevenue: results.netMonthlyRevenues,
     },
     investableCash: {
-      weeks: Array.from({ length: results.investableCashHistory.length }, (_, i) => i),
+      weeks: Array.from({ length: results.investableCashHistory.length }, (_, i) => (i + 1).toString()), // Convert to string
       investableCash: results.investableCashHistory,
     },
     inventory: {
-      weeks: Array.from({ length: results.inventoryHistory.length }, (_, i) => i),
+      weeks: Array.from({ length: results.inventoryHistory.length }, (_, i) => (i + 1).toString()), // Convert to string
       inventoryLevels: results.inventoryHistory,
     },
   };
