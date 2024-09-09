@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Chart } from 'react-chartjs-2';
 import { ChartOptions, ChartData } from 'chart.js';
 import 'chart.js/auto';
 
@@ -52,7 +52,7 @@ const MonthlySalesRevenueChart: React.FC<MonthlySalesRevenueChartProps> = ({ dat
                 borderColor: 'rgb(54, 162, 235)',
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 yAxisID: 'y',
-                type: 'bar', // specifies that this dataset will be rendered as a bar
+                type: 'bar', // Bar type for total bottles sold
             },
             {
                 label: 'Total Revenue',
@@ -60,12 +60,12 @@ const MonthlySalesRevenueChart: React.FC<MonthlySalesRevenueChartProps> = ({ dat
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 yAxisID: 'y1',
-                type: 'line', // specifies that this dataset will be rendered as a line
+                type: 'line', // Line type for total revenue
             },
         ],
     };
 
-    return <Bar options={options} data={chartData} />;
+    return <Chart type='bar' options={options} data={chartData} />;
 };
 
 export default MonthlySalesRevenueChart;
