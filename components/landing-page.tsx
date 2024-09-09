@@ -146,34 +146,35 @@ export function LandingPage() {
     return { history, monthlySales, monthlyRevenues, cashOnHandHistory, netMonthlyRevenues, investableCashHistory, inventoryHistory }
   }
 
-  const prepareChartData = (results: SimulationResults) => {
-    if (!results) return null
+const prepareChartData = (results) => {
+  if (!results) return null;
 
-    return {
-      weeklySales: results.history.map((item, index) => ({
-        week: index,
-        bottlesSold: item[1]
-      })),
-      monthlySalesRevenue: {
-        months: Array.from({ length: results.monthlySales.length }, (_, i) => i + 1),
-        monthlySales: results.monthlySales,
-        monthlyRevenues: results.monthlyRevenues
-      },
-      cashRevenue: {
-        months: Array.from({ length: results.netMonthlyRevenues.length }, (_, i) => i + 1),
-        cashOnHand: results.cashOnHandHistory,
-        netRevenue: results.netMonthlyRevenues
-      },
-      investableCash: {
-        weeks: Array.from({ length: results.investableCashHistory.length }, (_, i) => i),
-        investableCash: results.investableCashHistory
-      },
-      inventory: {
-        weeks: Array.from({ length: results.inventoryHistory.length }, (_, i) => i),
-        inventoryLevels: results.inventoryHistory
-      }
-    }
-  }
+  return {
+    weeklySales: results.history.map((item, index) => ({
+      week: index,
+      bottlesSold: item[1],
+    })),
+    monthlySalesRevenue: {
+      months: Array.from({ length: results.monthlySales.length }, (_, i) => (i + 1).toString()), // Convert to string
+      monthlySales: results.monthlySales,
+      monthlyRevenues: results.monthlyRevenues,
+    },
+    cashRevenue: {
+      months: Array.from({ length: results.netMonthlyRevenues.length }, (_, i) => (i + 1).toString()), // Convert to string
+      cashOnHand: results.cashOnHandHistory,
+      netRevenue: results.netMonthlyRevenues,
+    },
+    investableCash: {
+      weeks: Array.from({ length: results.investableCashHistory.length }, (_, i) => i),
+      investableCash: results.investableCashHistory,
+    },
+    inventory: {
+      weeks: Array.from({ length: results.inventoryHistory.length }, (_, i) => i),
+      inventoryLevels: results.inventoryHistory,
+    },
+  };
+};
+
 
   const chartData = simulationResults ? prepareChartData(simulationResults) : null
 
